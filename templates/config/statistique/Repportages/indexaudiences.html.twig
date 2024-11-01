@@ -1,0 +1,173 @@
+
+{% block body %}
+<div class="card shadow-sm">
+    <div class="row">
+        <div class="col-12">
+            <ul class="nav nav-tabs nav-line-tabs mb-5 fs-6">
+                <li class="nav-item">
+                    <a class="nav-link active" data-bs-toggle="tab" href="#kt_tab_pane_7">Accordés</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_8">Réjetés</a>
+                </li>
+                {# <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_9">Link 3</a>
+                </li> #}
+
+            </ul>
+
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="kt_tab_pane_7" role="tabpanel">
+                    <div class="card shadow-sm">
+                        <div class="card-header card-header-sm">
+                            <h3 class="card-title"> Liste des audiences avec groupe personne accordées</h3>
+                            <div class="card-toolbar">
+                                <a href="{{ path('app_pdf_generator_audience_accord') }}" class="btn btn-success btn-sm">
+                                    <i class="bi bi-plus-square text-light"></i>
+                                    imprimer la liste
+                                </a>
+                                &nbsp;
+
+                                {# <a href="{{ path('app_parametre_communaute_new') }}" class="btn btn-main btn-sm"
+                                    data-bs-toggle="modal" data-bs-target="#exampleModalSizeLg2">
+                                    <i class="bi bi-plus-square text-light"></i>
+                                    Nouveau
+                                </a> #}
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped gy-7 gs-7">
+                                            <thead class="bg-primary">
+                                                <tr
+                                                    class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200 ">
+                                                    <th class="text-white">Date de la rencontre</th>
+                                                    <th class="text-white">Communauté</th>
+                                                    <th class="text-white">Nom du chef</th>
+                                                    <th class="text-white">Numéro</th>
+                                                    {# <th class="text-white">Action</th> #}
+                                                    {# <th class="text-white">Salary</th> #}
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                              
+                                                {% for audience in stats.getAudiencerealieyes %}
+                                                
+                                                <tr>
+                                                    <td>{{ audience.daterencontre ? audience.daterencontre|date('d-m-Y ') : '' }}</td>
+                                                    <td>{{ audience.communaute.libelle }}</td>
+                                                
+                                                    <td>{{ audience.nomchef }}</td>
+                                                    <td>{{ audience.numero }}</td>
+                                                    {# <td>{{ audience.motif }}</td> #}
+                                                    {# <td>{{ audience.nombreparticipant }}</td> #}
+                                                   
+                                                    {# <td>{{ audience.communaute.localite.libelle }}</td> #}
+                                                    {# <td>{{ audience.observation }}</td> #}
+                                                    {# <td>{{ audience.etat ? 'Yes' : 'No' }}</td> #}
+                                                    {# <td>{{ audience.CreatedAt ? audience.CreatedAt|date('d-m-Y ') : '' }}</td>
+                                                    <td>{{ audience.UpdatedAt ? audience.UpdatedAt|date('d-m-Y ') : '' }}</td> #}
+                                                </tr>
+                                                
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card shadow-sm">
+
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="kt_tab_pane_8" role="tabpanel">
+                    <div class="card shadow-sm">
+                        <div class="card-header card-header-sm">
+                            <h3 class="card-title"> Liste des audiences avec groupe personne rejetées</h3>
+                            <div class="card-toolbar">
+                                <a href="{{ path('app_pdf_generator_audience_rejet') }}" class="btn btn-success btn-sm">
+                                    <i class="bi bi-plus-square text-light"></i>
+                                    imprimer la liste
+                                </a>
+                                &nbsp;
+
+                                {# <a href="{{ path('app_parametre_communaute_new') }}" class="btn btn-main btn-sm"
+                                    data-bs-toggle="modal" data-bs-target="#exampleModalSizeLg2">
+                                    <i class="bi bi-plus-square text-light"></i>
+                                    Nouveau
+                                </a> #}
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped gy-7 gs-7">
+                                            <thead class="bg-primary">
+                                                <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200 ">
+                                                    <th class="text-white">Date de la rencontre</th>
+                                                    <th class="text-white">Communauté</th>
+                                                    <th class="text-white">Nom du chef</th>
+                                                    <th class="text-white">Numéro</th>
+                                                    {# <th class="text-white">Action</th> #}
+                                                    {# <th class="text-white">Salary</th> #}
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                        
+                                                {% for audience in stats.getAudiencerealieno %}
+                                        
+                                                <tr>
+                                                    <td>{{ audience.daterencontre ? audience.daterencontre|date('d-m-Y ') : '' }}</td>
+                                                    <td>{{ audience.communaute.libelle }}</td>
+                                        
+                                                    <td>{{ audience.nomchef }}</td>
+                                                    <td>{{ audience.numero }}</td>
+                                                    {# <td>{{ audience.motif }}</td> #}
+                                                    {# <td>{{ audience.nombreparticipant }}</td> #}
+                                        
+                                                    {# <td>{{ audience.communaute.localite.libelle }}</td> #}
+                                                    {# <td>{{ audience.observation }}</td> #}
+                                                    {# <td>{{ audience.etat ? 'Yes' : 'No' }}</td> #}
+                                                    {# <td>{{ audience.CreatedAt ? audience.CreatedAt|date('d-m-Y ') : '' }}</td>
+                                                    <td>{{ audience.UpdatedAt ? audience.UpdatedAt|date('d-m-Y ') : '' }}</td> #}
+                                                </tr>
+                                        
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {# <div class="tab-pane fade" id="kt_tab_pane_9" role="tabpanel">
+                    ...
+                </div>
+                <div class="tab-pane fade show active" id="kt_tab_pane_10" role="tabpanel">
+                    ...
+                </div>y
+                <div class="tab-pane fade" id="kt_tab_pane_11" role="tabpanel">
+                    ...
+                </div>
+                <div class="tab-pane fade" id="kt_tab_pane_12" role="tabpanel">
+                    ...
+                </div>
+                <div class="tab-pane fade" id="kt_tab_pane_13" role="tabpanel">
+                    ...
+                </div> #}
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+
+{% block java %}
+
+{% endblock %}

@@ -1,0 +1,57 @@
+nelmio_api_doc:
+  documentation:
+    servers:
+      - url: http://127.0.0.1:8000
+    info:
+      title: Documentation api SETDONS
+      description: APIs de setdons
+      version: 1.0.0
+    paths:
+      /api/login_check:
+        post:
+          tags:
+            - Token
+          operationId: postCredentialsItem
+
+          summary: Permet d'obtenir le token JWT pour se connecter.
+          requestBody:
+            description: Création du token JWT
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Credentials'
+          responses:
+            '200':
+              description: Recupération du token JWT
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/Token'
+    components:
+      schemas:
+        Token:
+          type: object
+          properties:
+            token:
+              type: string
+              readOnly: true
+        Credentials:
+          type: object
+          properties:
+            username:
+              type: string
+              default: admin
+            password:
+              type: string
+              default: admin
+      securitySchemes:
+        BearerAuth:
+          type: apiKey
+          in: header
+          name: Authorization
+    security:
+      - BearerAuth: []
+
+  areas: # to filter documented areas
+    path_patterns:
+      - ^/api(?!/doc$) # Accepts routes under /api except /api/doc

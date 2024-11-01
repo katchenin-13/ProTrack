@@ -1,0 +1,106 @@
+imports:
+  - "./workflows/"
+framework:
+  workflows:
+    fielpromesse:
+      type: "state_machine"
+      audit_trail:
+        enabled: true
+      marking_store:
+        type: "method"
+        property: "etat"
+      supports:
+        - App\Entity\Fielpromesse
+
+      initial_marking: fielpromesse_initie
+      places:
+        - fielpromesse_initie
+        - fielpromesse_valider
+        - fielpromesse_rejeter
+      transitions:
+        rejeter:
+              from: fielpromesse_initie
+              to: fielpromesse_rejeter
+        valider:
+              from: fielpromesse_initie
+              to: fielpromesse_valider
+
+    audience:
+          type: "state_machine"
+          audit_trail:
+            enabled: true
+          marking_store:
+            type: "method"
+            property: "etat"
+          supports:
+            - App\Entity\Audience
+
+          initial_marking: audience_initie
+          places:
+              - audience_initie
+              - audience_valider
+              - audience_rejeter
+
+          transitions:
+           
+            rejeter:
+              from: audience_initie
+              to: audience_rejeter
+            valider:
+              from: audience_initie
+              to: audience_valider
+           
+  
+    demande:
+          type: "state_machine"
+          audit_trail:
+            enabled: true
+          marking_store:
+            type: "method"
+            property: "etat"
+          supports:
+            - App\Entity\Demande
+
+          initial_marking: demande_initie
+          places:
+            - demande_initie
+            - demande_valider
+            - demande_rejeter
+          transitions:
+              rejeter:
+                from: demande_initie
+                to: demande_rejeter
+              valider:
+                from: demande_initie
+                to: demande_valider
+    missionrapport:
+          type: "state_machine"
+          audit_trail:
+            enabled: true
+          marking_store:
+            type: "method"
+            property: "etat"
+          supports:
+            - App\Entity\Missionrapport
+
+          initial_marking: missionrapport_initie
+          places:
+            - missionrapport_initie
+            - missionrapport_attend
+            - missionrapport_valider
+            - missionrapport_rejeter
+          transitions:
+              attend:
+                 from: missionrapport_initie
+                 to: missionrapport_attend
+              rejeter:
+                from: missionrapport_attend
+                to: missionrapport_rejeter
+              valider:
+                from: missionrapport_attend
+                to: missionrapport_valider
+              retour:
+                from: missionrapport_rejeter
+                to: missionrapport_attend            
+    
+           

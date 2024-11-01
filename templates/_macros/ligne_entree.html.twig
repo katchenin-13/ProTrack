@@ -1,0 +1,247 @@
+{% macro list_ligne_motif(ligne) %}
+    <div class="row-line">
+{#{{ dump(ligne.children.fichier.vars.data[0][0]) }}#}
+        <div class="card border-success mb-3" >
+            <div class="card-body bg-warning text-success">
+                <div class="row">
+                    <div class="form-group col-md-6">{{ form_row(ligne.element,{'attr':{'class':'form-control element'}}) }}</div>
+                    <div class="form-group col-md-6">{{ form_row(ligne.nomEnfant,{'attr':{'class':'form-control enfant','placeholder':"Precisez le nom de l'enfant",}}) }}</div>
+                </div>
+                <div class="row ">
+                    <div class="form-group col-md-12">{{ form_row(ligne.precisez,{'attr':{'class':'form-control precisez','placeholder':"Donnez un justification",}}) }}</div>
+                </div>
+
+            </div>
+            {#<div class="card-footer bg-transparent border-success" style="height: 45px;">
+                <div class="row">
+                    <div class="form-group col-md-11"></div>
+                    <div class="form-group col-md-1 del-col offset-12">
+
+                    </div>
+                </div></div>#}
+            {#<div class="card-footer bg-transparent border-success">Footer</div>#}
+        </div>
+          {#  <div class="form-group col-md-3">{{ form_row(ligne.nomEnfant,{'attr':{'class':'enfant'}}) }}</div>
+            <div class="form-group col-md-2">{{ form_row(ligne.fichier,{'attr':{'class':'enfant'}}) }}</div>
+
+        <div class="form-group col-md-3">{{ form_row(ligne.precisez,{'attr':{'class':'precisez'}}) }}</div>
+        <div class="form-group col-md-1 del-col">
+
+        </div>#}
+    </div>
+    <div class="row">
+
+    </div>
+
+{% endmacro %}
+{% macro nompf(nompf) %}
+<div class="row row-line">
+    <div class="form-group col-md-10">{{ form_row(nompf.libelle) }}</div>
+    <div class="form-group col-md-1 del-col">
+    </div>
+</div>
+{% endmacro %}
+{% macro numeropf(numeropf) %}
+<div class="row row-line">
+    <div class="form-group col-md-10">{{ form_row(numeropf.libelle) }}</div>
+    <div class="form-group col-md-1 del-col">
+
+    </div>
+</div>
+{% endmacro %}
+{% macro emailpf(emailpf) %}
+<div class="row row-line">
+    <div class="form-group col-md-10">{{ form_row(emailpf.libelle) }}</div>
+    <div class="form-group col-md-1 del-col">
+
+    </div>
+</div>
+{% endmacro %}
+
+{% macro fieldon(fieldon) %}
+<div class="row row-line">
+    <div class="row ">
+        <div class="col-md-2">{{ form_row(fieldon.typedonsfiel) }}</div>
+        <div class="col-md-1 ">{{ form_row(fieldon.qte,{'attr':{'class':'qte'}}) }}</div>
+        <div class="col-md-2 ">{{ form_row(fieldon.naturedon,{'attr':{'class':'naturedon'}}) }}</div>
+        <div class="col-md-3 ">{{ form_row(fieldon.motifdon) }}</div>
+        <div class="col-md-2 ">{{ form_row(fieldon.montantdon) }}</div>
+        <div class="col-md-1 del-col">
+
+        </div>
+
+
+    </div>
+</div>
+{% endmacro %}
+
+{% macro fielpromesses(fielpromesses) %}
+<div class="row row-line">
+    <div class="row ">
+        <div class="col-md-2">{{ form_row(fielpromesses.typepromesse) }}</div>
+        <div class="col-md-1 ">{{ form_row(fielpromesses.qte,{'attr':{'class':'qte'}}) }}</div>
+        <div class="col-md-2 ">{{ form_row(fielpromesses.nature,{'attr':{'class':'naturepromesse'}}) }}</div>
+        <div class="col-md-3 ">{{ form_row(fielpromesses.motif) }}</div>
+        <div class="col-md-2 ">{{ form_row(fielpromesses.montant) }}</div>
+       
+        <div class="col-md-1 del-col" data-parent=".row-colonne"></div>
+
+        </div>
+
+
+    </div>
+</div>
+{% endmacro %}
+
+{% macro list_ligne_motifs(ligne) %}
+    <div class="row-line">
+        <div class="row">
+           {# <div class="form-group col-md-6">{{ form_row(ligne.element) }}</div>#}
+            <div class="form-group col-md-12">{{ form_row(ligne.fichier) }}</div>
+        </div>
+    </div>
+
+
+{% endmacro %}
+
+
+
+
+{% macro list_ligne_avis(ligne) %}
+    <div class="row-line_avis">
+        <div class="card border-success mb-3" >
+            <div class="card-body bg-warning text-success">
+                <div class="row">
+                    <div class="form-group col-md-12">{{ form_row(ligne.element) }}</div>
+                </div>
+                <div class="row ">
+                    <div class="form-group col-md-12">{{ form_row(ligne.justification) }}</div>
+
+                </div>
+
+            </div>
+           {# <hr>#}
+            <div class="card-footer bg-transparent border-success" style="height: 45px;">
+                <div class="row">
+                    <div class="form-group col-md-11"></div>
+                    <div class="form-group col-md-1 del-col_avis offset-12">
+
+                    </div>
+                </div></div>
+        </div>
+        {#  <div class="form-group col-md-3">{{ form_row(ligne.nomEnfant,{'attr':{'class':'enfant'}}) }}</div>
+          <div class="form-group col-md-2">{{ form_row(ligne.fichier,{'attr':{'class':'enfant'}}) }}</div>
+
+      <div class="form-group col-md-3">{{ form_row(ligne.precisez,{'attr':{'class':'precisez'}}) }}</div>
+      <div class="form-group col-md-1 del-col">
+
+      </div>#}
+    </div>
+{% endmacro %}
+
+{% macro lignes_module_groupe(ligne) %}
+    <div class="row row-line">
+        <div class="form-group col-md-3">{{ form_row(ligne.module) }}</div>
+        <div class="form-group col-md-3">{{ form_row(ligne.groupeModule) }}</div>
+        <div class="form-group col-md-3">{{ form_row(ligne.permition) }}</div>
+        <div class="form-group col-md-1">{{ form_row(ligne.ordre) }}</div>
+        <div class="form-group col-md-1">{{ form_row(ligne.ordreGroupe) }}</div>
+        <div class="form-group col-md-1 del-col">
+
+        </div>
+    </div>
+{% endmacro %}
+
+
+{% macro lignes_sortie(article) %}
+    <div class="row row-line">
+        <div class="form-group col-md-3">{{ form_row(article.article,{'attr':{'class':'article'}}) }}</div>
+        <div class="form-group col-md-1">{{ form_row(article.quantite,{'attr':{'class':'quantite'}}) }}</div>
+        <div class="form-group col-md-3">{{ form_row(article.montant,{'attr':{'class':'montant'}}) }}</div>
+        <div class="form-group col-md-3">{{ form_row(article.total,{'attr':{'class':'total'}}) }}</div>
+        <div class="form-group col-md-1">{{ form_row(article.remise,{'attr':{'class':'remise'}}) }}</div>
+        <div class="form-group col-md-1 del-col">
+
+        </div>
+    </div>
+{% endmacro %}
+
+
+{% macro colonne(fielpromesses) %}
+
+	<div class="row-colonne  ">
+		{#{{ dump(redaction.children.path.vars.data) }}#}
+		<div class="row">
+           <div class="col-2">{{ form_row(fielpromesses.typepromesse,{'attr':{'class':'typepromesse'}}) }}</div>
+			<div class="col-1 ">{{ form_row(fielpromesses.qte,{'attr':{'class':'qte'}}) }}</div>
+			<div class="col-2 ">{{ form_row(fielpromesses.nature,{'attr':{'class':'naturepromesse'}}) }}</div>
+			<div class="col-3 ">{{ form_row(fielpromesses.motif) }}</div>
+			<div class="col-2 ">{{ form_row(fielpromesses.montant) }}</div>
+
+			<div class="col-1 del-col" data-parent=".row-colonne"></div>
+		</div>
+
+	</div>
+
+{% endmacro  %}
+
+
+{% macro prototype_ligne_colonne(form) %}
+	<div class="list-colonne" data-prototype="{{ _self.colonne(form.fielpromesses.vars.prototype, 1)|e }}"></div>
+
+	<div class="row py-2 mb-4 main" style="border-bottom:3px solid white;background: #3a4049">
+
+
+		<div class="col-9">
+			<h3 class="text-white">LISTE DES CONTRATS ACTIFS</h3>
+		</div>
+		<div class="col-3">
+			<button type="button" data-protoname="__name__" class="btn btn-default add_line btn-xs" id="add_ligne" data-protoclass=".list-colonne" data-container=".column-container">
+				<i class="fa fa-plus"></i>
+				Ajouter
+			</button>
+		</div>
+
+	</div>
+	<div class="row mb-4">
+		<div class="col-2">type</div>
+		<div class="col-2">Qte</div>
+		<div class="col-2">Nature</div>
+		<div class="col-3">Motif</div>
+		<div class="col-2">Montant</div>
+		<div class="col-1 del-col" data-parent=".row-colonne"></div>
+	</div>
+
+
+	<div class="column-container proto-container" data-childclass="">
+		{% for item in form.fielpromesses %}
+			{{ _self.colonne(item|e) }}
+		{% endfor %}
+	</div>
+{% endmacro %}
+
+
+
+{% macro groupe_specialite(ligne) %}
+    <div class="row-colonne mb-3 row">
+        {% set lib_article = ligne.vars.value.article.designation | default('') %}
+        {#{{ dump(redaction.children.path.vars.data) }}#}
+        <div class="col-md-6">{{ form_widget(ligne.article) }}</div>
+        <div class="col-md-5">{{ form_widget(ligne.quantite) }}</div>
+        <div class="col-md-1 del-col" data-parent=".row-colonne"></div>
+    </div>
+
+{% endmacro  %}
+
+{% macro prototype_groupe_specialite(form) %}
+    <div class="list-colonne"  data-prototype="{{ _self.groupe_specialite(form.ligneEntrees.vars.prototype)|e }}"></div>
+    <button type="button" data-protoname="__name__" class="btn btn-default add_line btn-xs" id="add_ligne"  data-protoclass=".list-colonne" data-container=".column-container">
+        <i class="fa fa-plus"></i> Ajouter une ligne
+    </button>
+    <br>
+    <div class="column-container" data-childclass="">
+        {% for item in form.ligneEntrees %}
+            {{ _self.groupe_specialite(item|e) }}
+        {% endfor %}
+    </div>
+{% endmacro %}

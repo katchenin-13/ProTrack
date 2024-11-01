@@ -1,0 +1,14 @@
+bin/console d:d:c (création de base de données)
+bin/console doctrine:migrations:migrate pour la création des tables
+bin/console doctrine:fixtures:load à  exécuter pour avoir des données de tests dans la BDD
+php bin/console doctrine:mapping:import "App\Entity" annotation --path=src/Entity (commande pour importer la database )
+vendor/bin/rector process
+/**
+     * @throws \ReflectionException
+     */
+    public function repositoryHasSaveAndRemoveMethods(string $repositoryFullClassName): bool
+    {
+        $reflectedComponents = new \ReflectionClass($repositoryFullClassName);
+
+        return $reflectedComponents->hasMethod('save') && $reflectedComponents->hasMethod('remove');
+    }

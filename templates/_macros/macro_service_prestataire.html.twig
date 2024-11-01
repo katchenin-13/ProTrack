@@ -1,0 +1,73 @@
+
+{% macro colonne(colonne) %}
+    <div class="row-colonne  my-3 py-2" style="border-bottom:3px solid #000">
+
+<div class="row">
+	    
+			<div class="col-md-2 ">
+				 {% include '_includes/image_service.html.twig'  with {'image':colonne.image,'data':colonne} %}
+			</div>
+			<div class="col-md-10 ">
+				
+				<div class="row">
+					<div class="col-md-4 ">
+                    <label class="sr-onl" for="userinput1" style="margin-left: 12px;">
+					Catégorie*
+				    </label>
+						{{ form_widget(colonne.categorie) }}
+					</div>
+					<div class="col-md-4 ">
+                     <label class="sr-onl" for="userinput1" >
+					Sous catégorie
+				    </label>
+						{{ form_widget(colonne.sousCategorie) }}
+					</div>
+					<div class="col-md-4 ">
+						{{ form_row(colonne.service) }}
+					</div>
+					
+				</div>
+				<div class="row">
+					<div class="col-md-11" > 
+                    {{ form_row(colonne.etat) }}
+                    </div>
+
+					  <div class="col-md-1 del-col" data-parent=".row-colonne"></div>
+				</div>
+			</div>
+
+
+		</div>
+
+
+       {#  {% include '_includes/image_service.html.twig'  with {'image':colonne.image,'data':colonne} %}
+        <div class="row">
+            <div class="col-md-3 ">
+                {{ form_row(colonne.categorie) }}
+            </div>
+            <div class="col-md-3 ">
+                {{ form_row(colonne.sousCategorie) }}
+            </div>
+            <div class="col-md-3 ">
+                {{ form_row(colonne.service) }}
+            </div>
+            <div class="col-md-2" > {{ form_row(colonne.etat) }}</div>
+            <div class="col-md-1 del-col" data-parent=".row-colonne"></div>
+        </div><br> #}
+       
+    </div>
+
+{% endmacro  %}
+
+
+{% macro prototype_ligne_colonne(form) %}
+    <div class="list-colonne"  data-prototype="{{ _self.colonne(form.prestataireServices.vars.prototype)|e }}"></div>
+    <button type="button" data-protoname="__name__" class="btn btn-default add_line btn-xs" id="add_ligne"  data-protoclass=".list-colonne" data-container=".column-container">
+        <i class="fa fa-plus"></i> Ajouter un service
+    </button>
+    <div class="column-container proto-container" data-childclass="">
+        {% for item in form.prestataireServices %}
+            {{ _self.colonne(item|e) }}
+        {% endfor %}
+    </div>
+{% endmacro %}

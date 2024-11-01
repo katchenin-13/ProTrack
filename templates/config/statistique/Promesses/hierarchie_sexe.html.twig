@@ -1,0 +1,132 @@
+{% block inline_stylesheets %}
+
+{% endblock %}
+{% block body %}
+{% form_theme form 'widget/fields-block.html.twig' %}
+<div class="card card-tabs card-stretch card-custom card-sticky">
+    <div class="card-header card-header-stretch card-header-custom">
+        <h3 class="card-title"> Evolution des effectifs par Localité </h3>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="filter-block d-flex justify-content-center">
+
+                     {{ form_start(form, {attr: {'class': 'w-600px'}})}}
+          <div class="row">
+                <!--begin::Repeater-->
+              <div id="kt_docs_repeater_advanced">
+                  <!--begin::Form group-->
+                  <div class="form-group">
+                      <div data-repeater-list="kt_docs_repeater_advanced">
+                          <div data-repeater-item>
+                              <div class="form-group row mb-5">
+                                 <div class="col-md-4">
+                                      {{ form_row(form.debut) }}
+                                  </div>
+                                  <div class="col-md-4">
+                                      {{ form_row(form.fin) }}
+                                  </div>
+                                  <div class="col-md-4">
+                                      {{ form_row(form.localite) }}
+                                  </div>
+                                  
+                                </div>
+                          </div>
+                      </div>
+                  </div>
+                  <!--end::Form group-->
+              </div>
+              <!--end::Repeater-->
+          </div>
+          {{ form_end(form, {render_rest: false}) }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert-error"></div>
+                <div id="container"></div>
+
+                <div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block java %}
+
+<script>
+    $(function () {
+        init_select2();
+        //load_data();
+
+        const $type_contrat = $('#{{ form.localite.vars.id }}');
+        const $error = $('.alert-error');
+        $type_contrat.on('change', function () {
+            const $this = $(this);
+            const current_value = $this.find('option:selectedpro').attr('data-value');
+            $error.html('');
+            if ($this.val()) {
+                load_data(current_value, { localite: $this.val() });
+            } else {
+                $error.html('Veuillez sélectionner la localite');
+            }
+
+        });
+        function load_data(contrat, filters = []) {
+            $.getJSON("{{ path('app_rh_dashboard_hierarchie_sexe_data') }}", { filters: filters }, function (data) {
+                console.log(data.series);
+                Highcharts.chart('container', {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Monthly Average Rainfall'
+                    },
+                    subtitle: {
+                        text: 'Source: WorldClimate.com'
+                    },
+                    xAxis: {
+                        categories: data.mois,
+                        crosshair: true
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: "nombre d'audience "
+                        }
+                    },
+                    tooltip: {
+                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                            '<td style="padding:0"><b>{point.y:.0f} Audience</b></td></tr>',
+                        footerFormat: '</table>',
+                        shared: true,
+                        useHTML: true
+                    },
+                    plotOptions: {
+                        column: {
+                            pointPadding: 0.2,
+                            borderWidth: 0
+                        }
+                    },
+                    series: data.data
+                });
+            });
+        }
+
+
+    });
+
+
+
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,79 @@
+{% macro lignes_module_groupe(ligne) %}
+    <div class="row row-line">
+        <div class="form-group col-md-2">{{ form_row(ligne.NumEtage) }}</div>
+        <div class="form-group col-md-2">{{ form_row(ligne.LibAppart) }}</div>
+        <div class="form-group col-md-2">{{ form_row(ligne.NbrePieces) }}</div>
+        <div class="form-group col-md-2">{{ form_row(ligne.Loyer) }}</div>
+        <div class="form-group col-md-3">{{ form_row(ligne.Details) }}</div>
+        <div class="form-group col-md-1 del-col">
+
+        </div>
+         
+    </div>
+{% endmacro %}
+{% macro colonne(colonne) %}
+    <div class="row-colonne ">
+        {#{{ dump(redaction.children.path.vars.data) }}#}
+        <div class="row">
+            <div class="col-md-2 ">
+                {{ form_row(colonne.NumEtage) }}
+            </div>
+            <div class="col-md-2 ">
+                {{ form_row(colonne.LibAppart) }}
+            </div>
+            <div class="col-md-2 ">
+                {{ form_row(colonne.NbrePieces) }}
+            </div>
+            <div class="col-md-2 ">
+                {{ form_row(colonne.Loyer) }}
+            </div>
+            <div class="col-md-3 ">
+                {{ form_row(colonne.Details) }}
+            </div>
+            <div class="col-md-1 del-col" data-parent=".row-colonne"></div>
+        </div>
+        
+    </div>
+
+{% endmacro  %}
+
+
+{% macro prototype_ligne_colonne(form) %}
+    <div class="list-colonne"  data-prototype="{{ _self.colonne(form.appartements.vars.prototype)|e }}"></div>
+    <div class="row py-2 mb-4"  style="border-bottom:3px solid white;background: #3a4049">
+
+        <div class="col-md-3">
+            <button type="button" data-protoname="__name__" class="btn btn-default add_line btn-xs" id="add_ligne"  data-protoclass=".list-colonne" data-container=".column-container">
+                <i class="fa fa-plus"></i> Ajouter
+            </button>
+        </div>
+        <div class="col-md-9">
+            <h3 class="text-white">LISTE DES APPARTEMENTS</h3>
+        </div>
+
+    </div>
+    <div class="row mb-4">
+        <div class="col-md-2">
+            N° Etage
+        </div>
+        <div class="col-md-2">
+            N° Appartement
+        </div>
+        <div class="col-md-2">
+            Nbre piece
+        </div>
+        <div class="col-md-2">
+            Loyer
+        </div>
+        <div class="col-md-3">
+            Autres Détails
+        </div>
+
+        <div class="col-md-1 del-col" data-parent=".row-colonne"></div>
+    </div>
+    <div class="column-container proto-container" data-childclass="">
+        {% for item in form.appartements %}
+            {{ _self.colonne(item|e) }}
+        {% endfor %}
+    </div>
+{% endmacro %}

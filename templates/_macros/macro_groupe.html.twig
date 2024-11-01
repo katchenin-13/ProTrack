@@ -1,0 +1,62 @@
+{% macro lignes_module_groupe(ligne) %}
+    <div class="row row-line">
+        <div class="form-group col-md-3">{{ form_row(ligne.module) }}</div>
+        <div class="form-group col-md-3">{{ form_row(ligne.groupeModule) }}</div>
+        <div class="form-group col-md-3">{{ form_row(ligne.permition) }}</div>
+        <div class="form-group col-md-1">{{ form_row(ligne.ordre) }}</div>
+        <div class="form-group col-md-1">{{ form_row(ligne.ordreGroupe) }}</div>
+        <div class="form-group col-md-1 del-col">
+
+        </div>
+    </div>
+{% endmacro %}
+{% macro colonne(colonne) %}
+    <div class="row-colonne  my-3 py-2" style="border-bottom:3px solid #000">
+        {#{{ dump(redaction.children.path.vars.data) }}#}
+        <div class="row">
+            <div class="col-md-4 ">
+                {{ form_row(colonne.module) }}
+            </div>
+            <div class="col-md-4 ">
+                {{ form_row(colonne.groupeModule) }}
+            </div>
+            <div class="col-md-4 ">
+                {{ form_row(colonne.permition) }}
+            </div>
+        </div><br>
+        <div class="row">
+
+            <div class="col-md-5 source d-none">
+                {#{{ form_row(colonne.ordre) }}#}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 valeurs d-none">
+              {#  {{ form_row(colonne.ordreGroupe) }}#}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">{{ form_row(colonne.ordre) }}</div>
+            <div class="col-md-2">{{ form_row(colonne.ordreGroupe) }}</div>
+            <div class="col-md-4">{{ form_row(colonne.menuPrincipal) }}</div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-1 del-col" data-parent=".row-colonne"></div>
+        </div>
+    </div>
+
+{% endmacro  %}
+
+
+{% macro prototype_ligne_colonne(form) %}
+    <div class="list-colonne"  data-prototype="{{ _self.colonne(form.moduleGroupePermitions.vars.prototype)|e }}"></div>
+    <button type="button" data-protoname="__name__" class="btn btn-default add_line btn-xs" id="add_ligne"  data-protoclass=".list-colonne" data-container=".column-container">
+        <i class="fa fa-plus"></i> Ajouter une ligne
+    </button>
+    <div class="column-container proto-container" data-childclass="">
+        {% for item in form.moduleGroupePermitions %}
+            {{ _self.colonne(item|e) }}
+        {% endfor %}
+    </div>
+{% endmacro %}

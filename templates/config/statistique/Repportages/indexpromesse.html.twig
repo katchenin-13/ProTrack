@@ -1,0 +1,306 @@
+{# {% extends 'base-layout.html.twig' %}
+
+{% block title %}Liste des communautes{% endblock %}
+{% block header %}communautes{% endblock %}
+{% block breadcrumb %}{% endblock %} #}
+{% block body %}
+<div class="card shadow-sm">
+  <div class="row">
+    <div class="col-12">
+        <ul class="nav nav-tabs nav-line-tabs mb-5 fs-6">
+            <li>
+                <a class="nav-link active" data-bs-toggle="tab" href="#kt_tab_pane_7">En Nature</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_8">En Espece</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_9">Réalisées</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_10">Non réalisées</a>
+            </li>
+            {# <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_9">Link 3</a>
+            </li> #}
+            
+        </ul>
+        
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="kt_tab_pane_7" role="tabpanel">
+                <div class="card shadow-sm">
+                    <div class="card-header card-header-sm">
+                        <h3 class="card-title"> Liste des promesses </h3>
+                        <div class="card-toolbar">
+                            <a href="{{ path('app_pdf_generator_promesses_espece') }}" class="btn btn-success btn-sm">
+                                <i class="bi bi-plus-square text-light"></i>
+                                imprimer la liste
+                            </a>
+                            &nbsp;
+                
+                            {# <a href="{{ path('app_parametre_communaute_new') }}" class="btn btn-main btn-sm" data-bs-toggle="modal"
+                                data-bs-target="#exampleModalSizeLg2">
+                                <i class="bi bi-plus-square text-light"></i>
+                                Nouveau
+                            </a> #}
+                                      
+                         </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                             <div class="col-sm-12">
+                              <div class="table-responsive">
+                                    <table class="table table-striped gy-7 gs-7">
+                                        <thead class="bg-primary">
+                                                <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200 ">
+                                                <th class="text-white">Type Promesse</th>
+                                                <th class="text-white">Motif</th>
+                                                <th class="text-white">Montant/valeur</th>
+                                                {# <th class="text-white">Lieu de provénance</th> #}  
+                
+                
+                                                {# <th class="text-white">Nombre de participant</th> #}
+                                                {# <th class="text-white">Communaute</th> #}
+                                                {# <th class="text-white">Localité</th> #}
+                                                {# <th class="text-white">Motif</th>
+                                                <th class="text-white">Status de l'Audience</th> #}
+                                                {# <th class="text-white">Date de création</th>
+                                                <th class="text-white">Date de la dernière modtification</th> #}
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for don in stats.getPromessenature %}
+                                                <tr>
+                                                    <td>{{ don.typedon.libelle }}</td>
+                                                    <td>{{ don.motif }}</td>
+                                                    {# <td>{{ don.daterencontre ? don.daterencontre|date('d-m-Y ') : '' }}</td> #}
+                                                    <td>{{ don.montant }}</td>
+                                                    {# <td>{{ don.nombreparticipant }}</td> #}
+                                                    {# <td>{{ don.communaute.libelle | lower}}</td> #}
+                                                    {# <td>{{ don.communaute.localite.libelle | lower }}</td> #}
+                                                    {# <td>{{ don.observation }}</td> #}
+                                                    {# <td>{{ don.motif }}</td>
+                                                    <td>{{ don.statusdon ? 'Yes' : 'No' }}</td> #}
+                                                    {# <td>{{ don.CreatedAt ? don.CreatedAt|date('d-m-Y ') : '' }}</td>
+                                                    <td>{{ don.UpdatedAt ? audience.UpdatedAt|date('d-m-Y ') : '' }}</td> #}
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="kt_tab_pane_8" role="tabpanel">
+                <div class="card shadow-sm">
+                    <div class="card-header card-header-sm">
+                        <h3 class="card-title">Liste des promesses </h3>
+                        <div class="card-toolbar">
+                            <a href="{{ path('app_pdf_generator_promesses_nature') }}" class="btn btn-success btn-sm">
+                                <i class="bi bi-plus-square text-light"></i>
+                                imprimer la liste
+                            </a>
+                            &nbsp;
+                
+                            {# <a href="{{ path('app_parametre_communaute_new') }}" class="btn btn-main btn-sm" data-bs-toggle="modal"
+                                data-bs-target="#exampleModalSizeLg2">
+                                <i class="bi bi-plus-square text-light"></i>
+                                Nouveau
+                            </a> #}
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                              <div class="table-responsive">
+                                    <table class="table table-striped gy-7 gs-7">
+                                        <thead class="bg-primary">
+                                            <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200 ">
+                                                <th class="text-white">Type Promesse</th>
+                                                <th class="text-white">Motif</th>
+                                                <th class="text-white">Montant/valeur</th>
+                                                {# <th class="text-white">Lieu de provénance</th> #}
+                
+                
+                                                {# <th class="text-white">Nombre de participant</th> #}
+                                                {# <th class="text-white">Communaute</th> #}
+                                                {# <th class="text-white">Localité</th> #}
+                                                {# <th class="text-white">Motif</th>
+                                                <th class="text-white">Status de l'Audience</th> #}
+                                                {# <th class="text-white">Date de création</th>
+                                                <th class="text-white">Date de la dernière modtification</th> #}
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for don in stats.getPromesseespece %}
+                                                <tr>
+                                                    <td>{{ don.typedon.libelle }}</td>
+                                                    <td>{{ don.motif }}</td>
+                                                    {# <td>{{ don.daterencontre ? don.daterencontre|date('d-m-Y ') : '' }}</td> #}
+                                                    <td>{{ don.montant }}</td>
+                                                    {# <td>{{ don.nombreparticipant }}</td> #}
+                                                    {# <td>{{ don.communaute.libelle | lower}}</td> #}
+                                                    {# <td>{{ don.communaute.localite.libelle | lower }}</td> #}
+                                                    {# <td>{{ don.observation }}</td> #}
+                                                    {# <td>{{ don.motif }}</td>
+                                                    <td>{{ don.statusdon ? 'Yes' : 'No' }}</td> #}
+                                                    {# <td>{{ don.CreatedAt ? don.CreatedAt|date('d-m-Y ') : '' }}</td>
+                                                    <td>{{ don.UpdatedAt ? audience.UpdatedAt|date('d-m-Y ') : '' }}</td> #}
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="kt_tab_pane_9" role="tabpanel">
+                <div class="card shadow-sm">
+                    <div class="card-header card-header-sm">
+                        <h3 class="card-title"> Liste des promesses </h3>
+                        <div class="card-toolbar">
+                            <a href="{{ path('app_pdf_generator_promesse_accord') }}" class="btn btn-success btn-sm">
+                                <i class="bi bi-plus-square text-light"></i>
+                                imprimer la liste
+                            </a>
+                            &nbsp;
+                
+                            {# <a href="{{ path('app_parametre_communaute_new') }}" class="btn btn-main btn-sm" data-bs-toggle="modal"
+                                data-bs-target="#exampleModalSizeLg2">
+                                <i class="bi bi-plus-square text-light"></i>
+                                Nouveau
+                            </a> #}
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="table-responsive">
+                                    <table class="table table-striped gy-7 gs-7">
+                                        <thead class="bg-primary">
+                                            <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200 ">
+                                                <th class="text-white">Date de la Réalisation</th>
+                                                 <th  class="text-white">Nom du Bénéficiaire </th>
+                                                <th  class="text-white">Bénéficiaire tel</th>
+                                                <th  class="text-white">Communaute</th>
+                                                {# <th  class="text-white">Remise par</th> #}
+                                                {# <th  class="text-white">Nombre de participant</th> #}
+                                                {# <th  class="text-white">Communaute</th>
+                                                <th  class="text-white">Localité</th>
+                                                <th  class="text-white">Status de l'Audience</th> #}
+                                                {# <th  class="text-white">Date de création</th>
+                                                <th  class="text-white">Date de la dernière modtification</th> #}
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                           {% for promesse in stats.getPormesserealieyes %}
+                                               <tr>                                                    {# <td>{{ promesse.motif }}</td> #}
+                                                    <td>{{ promesse.dateremise ? promesse.dateremise|date('d-m-Y') : '' }}</td>
+                                                     <td>{{ promesse.nom }}</td> 
+                                                    <td>{{ promesse.numero }}</td>
+                                                    {# <td>{{ promesse.email }}</td> #}
+                                                    <td>{{ promesse.communaute.libelle | lower}}</td>
+                                                    {# <td>{{ promesse.communaute.localite.libelle| lower }}</td> #}
+                                                  
+                                                    {# <td>{{ promesse.statuspromesse ? 'Yes' : 'No' }}</td> #}
+                                                    {# <td>{{ promesse.CreatedAt ? promesse.CreatedAt|date('d-m-Y  ') : '' }}</td>
+                                                    <td>{{ promesse.UpdatedAt ? promesse.UpdatedAt|date('d-m-Y  ') : '' }}</td> #}
+                                                </tr>
+                                        
+                                            {% endfor %}
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade show active" id="kt_tab_pane_10" role="tabpanel">
+                <div class="card shadow-sm">
+                    <div class="card-header card-header-sm">
+                        <h3 class="card-title"> Liste des promesses </h3>
+                        <div class="card-toolbar">
+                            <a href="{{ path('app_pdf_generator_promesse_rejet') }}" class="btn btn-success btn-sm">
+                                <i class="bi bi-plus-square text-light"></i>
+                                imprimer la liste
+                            </a>
+                            &nbsp;
+                
+                            {# <a href="{{ path('app_parametre_communaute_new') }}" class="btn btn-main btn-sm" data-bs-toggle="modal"
+                                data-bs-target="#exampleModalSizeLg2">
+                                <i class="bi bi-plus-square text-light"></i>
+                                Nouveau
+                            </a> #}
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="table-responsive">
+                                    <table class="table table-striped gy-7 gs-7">
+                                        <thead class="bg-primary">
+                                            <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200 ">
+                                                <th class="text-white">Date de la Réalisation</th>
+                                                 <th  class="text-white">Nom du Bénéficiaire </th>
+                                                <th  class="text-white">Bénéficiaire tel</th>
+                                                <th  class="text-white">Communaute</th>
+                                                {# <th  class="text-white">Remise par</th> #}
+                                                {# <th  class="text-white">Nombre de participant</th> #}
+                                                {# <th  class="text-white">Communaute</th>
+                                                <th  class="text-white">Localité</th>
+                                                <th  class="text-white">Status de l'Audience</th> #}
+                                                {# <th  class="text-white">Date de création</th>
+                                                <th  class="text-white">Date de la dernière modtification</th> #}
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                           {% for promesse in stats.getPormesserealieno %}
+                                               <tr>                                                    {# <td>{{ promesse.motif }}</td> #}
+                                                    <td>{{ promesse.dateremise ? promesse.dateremise|date('d-m-Y') : '' }}</td>
+                                                     <td>{{ promesse.nom }}</td> 
+                                                    <td>{{ promesse.numero }}</td>
+                                                    {# <td>{{ promesse.email }}</td> #}
+                                                    <td>{{ promesse.communaute.libelle | lower}}</td>
+                                                    {# <td>{{ promesse.communaute.localite.libelle| lower }}</td> #}
+                                                  
+                                                    {# <td>{{ promesse.statuspromesse ? 'Yes' : 'No' }}</td> #}
+                                                    {# <td>{{ promesse.CreatedAt ? promesse.CreatedAt|date('d-m-Y  ') : '' }}</td>
+                                                    <td>{{ promesse.UpdatedAt ? promesse.UpdatedAt|date('d-m-Y  ') : '' }}</td> #}
+                                                </tr>
+                                        
+                                            {% endfor %}
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {# <div class="tab-pane fade" id="kt_tab_pane_11" role="tabpanel">
+                ...
+            </div>
+            <div class="tab-pane fade" id="kt_tab_pane_12" role="tabpanel">
+                ...
+            </div>
+            <div class="tab-pane fade" id="kt_tab_pane_13" role="tabpanel">
+                ...
+            </div>  #}
+        </div>
+    </div>
+  </div>
+ 
+</div>
+{% endblock %}
+
+
+{% block java %}
+
+{% endblock %}

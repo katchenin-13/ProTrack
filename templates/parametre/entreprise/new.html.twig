@@ -1,0 +1,294 @@
+{% block page_content %}
+    {% form_theme form 'widget/fields-block.html.twig' %}
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+            Création Entreprise
+        </h5>
+        <div class="btn btn-icon btn-sm  ms-2" data-bs-dismiss="modal" aria-label="Close">
+			<span class="svg-icon svg-icon-2x text-white">
+				<svg width="24" height="24" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor"></rect>
+					<rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="currentColor"></rect>
+				</svg>
+			</span>
+        </div>
+    </div>
+    {{ form_start(form, {'attr': {'role':'form', 'class': 'form' }}
+    ) }}
+
+    <div class="modal-body content-doc">
+        {{ include('_includes/ajax/response.html.twig') }}
+        <div class="row">
+            <!--begin::Image input-->
+            <div class="col-md-2 ">
+                {% include '_includes/logo.html.twig'  with {'logo':form.logo,'data':null,'photo':null} %}
+            </div>
+
+            <div class="col-md-10 ">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label class="sr-onl" for="userinput1">
+                            Pays*
+                        </label>
+                        {{ form_widget(form.pays) }}
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="sr-onl" for="userinput1">
+                            Ville*
+                        </label>
+                        {{ form_widget(form.ville) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label class="sr-onl" for="userinput1">
+                            Situation géographique*
+                        </label>
+                        {{ form_widget(form.situation_geo) }}
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="sr-onl" for="userinput1">
+                            Boîte postale*
+                        </label>
+                        {{ form_widget(form.fax) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end::Image input-->
+
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label class="sr-onl" for="userinput1">
+                    Nom*
+                </label>
+                {{ form_widget(form.denomination) }}
+            </div>
+            <div class="form-group col-md-6">
+                <label class="sr-onl" for="userinput1">
+                    Sigle*
+                </label>
+                {{ form_widget(form.Sigle) }}
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label class="sr-onl" for="userinput1">
+                    Date création*
+                </label>
+                {{ form_widget(form.dateCreation) }}
+            </div>
+            <div class="form-group col-md-6">
+                <label class="sr-onl" for="userinput1">
+                    Directeur général*
+                </label>
+                {{ form_widget(form.Directeur) }}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label class="sr-onl" for="userinput1">
+                    Agrements*
+                </label>
+                {{ form_widget(form.Agrements) }}
+            </div>
+            <div class="form-group col-md-6">
+                <label class="sr-onl" for="userinput1">
+                    Télephone*
+                </label>
+                {{ form_widget(form.contacts) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label class="sr-onl" for="userinput1">
+                    Mobile*
+                </label>
+                {{ form_widget(form.mobile) }}
+            </div>
+            <div class="form-group col-md-4">
+                <label class="sr-onl" for="userinput1">
+                    Email*
+                </label>
+                {{ form_widget(form.email) }}
+            </div>
+            <div class="form-group col-md-4">
+                <label class="sr-onl" for="userinput1">
+                    Site web*
+                </label>
+                {{ form_widget(form.site_web) }}
+            </div>
+        </div>
+
+
+    <div
+            class="modal-footer">
+        {# {{ include('_includes/ajax/loader.html.twig') }} #}
+        <button type="button" class="btn btn-default btn-sm" data-bs-dismiss="modal">
+            Annuler
+        </button>
+        <button type="submit" class="btn btn-main btn-ajax btn-sm">
+            <span class="spinner-border d-none  spinner-ajax spinner-border-sm" role="status" aria-hidden="true"></span>
+            Valider
+        </button>
+    </div>
+    </div>
+    {{ form_widget(form._token) }}
+    {{ form_end(form, {render_rest: false}) }}
+{% endblock %}
+{% block java %}
+    {# <script src="assets/js/scripts.bundle.js"></script> #}
+    <script>
+        //alert("jjkj")
+        $('.region').on('change',function(){
+            $res = $(this).closest('.row');
+            $id = $(this).val();
+            //alert("mmlm")
+            $.ajax({
+                url:        '/ads/utilisateur/front/prestataire/liste/communes',
+                type:       'get',
+                async: false,
+                data:     {id:$id},
+                dataType:   'json',
+                success: function(json){
+                    console.log("KONATE---------",json);
+                    $res.find('#'+$('.commune').attr("id")).html(''); //je vide la 2ème list
+                    $res.find('#'+$('.commune').attr("id")).append('<option value selected="default">Choisissez</option>');
+                    $.each(json, function(index, value) { // et une boucle sur la réponse contenu dans la variable passé à la function du success "json"
+
+                        $res.find("#"+$('.commune').attr("id")).append('<option value="'+ value.id +'"  >' + value.libelle +'</option>');
+
+                    });
+
+
+
+                }
+            })
+
+            $.ajax({
+                url:        '/ads/utilisateur/front/prestataire/liste/quartiers',
+                type:       'get',
+                async: false,
+                data:     {id:$id},
+                dataType:   'json',
+                success: function(json){
+
+                    $res.find('#'+$res.find('.quartier').attr("id")).html(''); //je vide la 2ème list
+                    $res.find('#'+$res.find('.quartier').attr("id")).append('<option value selected="default">Choisissez</option>');
+                    $.each(json, function(index, value) { // et une boucle sur la réponse contenu dans la variable passé à la function du success "json"
+
+                        $res.find("#"+$('.quartier').attr("id")).append('<option value="'+ value.id +'"  >' + value.libelle +'</option>');
+
+                    });
+
+
+
+                }
+            })
+
+            $('.commune').on('change',function(){
+                $res = $(this).closest('.row');
+                $id = $(this).val();
+                $.ajax({
+                    url:        '/ads/utilisateur/front/prestataire/liste/quartier/communes',
+                    type:       'get',
+                    async: false,
+                    data:     {id:$id},
+                    dataType:   'json',
+                    success: function(json){
+
+                        /*$('.quartier').html(''); //je vide la 2ème list
+                        $('.quartier').append('<option value selected="selected" >Choisissez</option>');*/
+                        $res.find('#'+$res.find('.quartier').attr("id")).html(''); //je vide la 2ème list
+                        $res.find('#'+$res.find('.quartier').attr("id")).append('<option value selected="default">Choisissez</option>');
+                        $.each(json, function(index, value) { // et une boucle sur la réponse contenu dans la variable passé à la function du success "json"
+
+                            $res.find("#"+$('.quartier').attr("id")).append('<option value="'+ value.id +'"  >' + value.libelle +'</option>');
+
+                        });
+
+
+
+                    }
+                })
+
+            })
+
+        })
+        $('.commune').on('change',function(){
+            $res = $(this).closest('.row');
+            $id = $(this).val();
+            $.ajax({
+                url:        '/ads/utilisateur/front/prestataire/liste/quartier/communes',
+                type:       'get',
+                async: false,
+                data:     {id:$id},
+                dataType:   'json',
+                success: function(json){
+
+                    /*$('.quartier').html(''); //je vide la 2ème list
+                    $('.quartier').append('<option value selected="selected" >Choisissez</option>');*/
+                    $res.find('#'+$res.find('.quartier').attr("id")).html(''); //je vide la 2ème list
+                    $res.find('#'+$res.find('.quartier').attr("id")).append('<option value selected="default">Choisissez</option>');
+                    $.each(json, function(index, value) { // et une boucle sur la réponse contenu dans la variable passé à la function du success "json"
+
+                        $res.find("#"+$('.quartier').attr("id")).append('<option value="'+ value.id +'"  >' + value.libelle +'</option>');
+
+                    });
+
+
+
+                }
+            })
+
+        })
+
+        $(function () {
+            /*$('.region').on('change',function (e) {
+                        alert("jjkj")
+                     $res = $(this).closest('.content-doc');
+
+                     $id = $(this).val();
+                  $.ajax({
+                    url:        '/ads/utilisateur/front/prestataire/liste/commune',
+                    type:       'get',
+                     async: false,
+                    data:     {id:$id},
+                    dataType:   'json',
+                    success: function(json){
+
+                        $res.find('#'+$res.find('.commune').attr("id")).html(''); //je vide la 2ème list
+                        $res.find('#'+$res.find('.commune').attr("id")).append('<option value selected="default">Choisissez</option>');
+                        $.each(json, function(index, value) { // et une boucle sur la réponse contenu dans la variable passé à la function du success "json"
+
+                          $res.find("#"+$res.find('.commune').attr("id")).append('<option value="'+ value.id +'"  >' + value.nom +'</option>');
+
+                        });
+
+
+
+                    }
+                });*/
+
+            init_select2('select', null, '.content-doc');
+            KTImageInput.createInstances();
+            var imageInputElement = document.querySelector("#kt_image_input_control");
+            var imageInput = KTImageInput.getInstance(imageInputElement);
+        });
+        $('.no-auto').each(function () {
+            const $this = $(this);
+            const $id = $('#' + $this.attr('id'));
+            init_date_picker($id,  'down', (start, e) => {
+                //$this.val(start.format('DD/MM/YYYY'));
+            }, null, null, null);
+
+            $id.on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.startDate.format('DD/MM/YYYY'));
+            });
+        });
+
+    </script>
+{% endblock %}

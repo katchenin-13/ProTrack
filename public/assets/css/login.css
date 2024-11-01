@@ -1,0 +1,27 @@
+/*html,body {
+    font-family: 'Poppins', "Helvetica", "sans-serif"!important;
+}*/
+
+/*body {
+    !*--color-main: #cf2e2e;*!
+    --color-main: #DDAD59;
+    --color-blanche: white
+    ;
+    --color-default: #29282E;
+    --color-marron-fonce: #856A3F;
+  }*/
+.btn.btn-main {
+    color: #FFFFFF;
+    background-color: var(--color-main);
+    border-color: var(--color-main);
+}
+
+.form-control, .form-control:focus {  
+    border-color: var(--color-main);
+}
+
+.text-main {
+    /*color: #cf2e2e;*/
+    color: var(--color-default);
+}
+

@@ -1,0 +1,77 @@
+{% extends 'security/layout.html.twig' %}
+
+{% block title %}Verification!{% endblock %}
+
+{% block body %}
+
+
+    <form class="form w-100"  id="kt_sign_in_form" action="{{ path('2fa_login_check') }}" method="POST">
+        <!--begin::Title-->
+
+        <!--begin::Title-->
+
+
+        <!--begin::Heading-->
+        <div class="text-center mb-11">
+            <a href="../../../index-2.html" class="mb-0 mb-lg-12">
+                {% if menu.findParametre | length > 0 %}
+                    <img alt="Logo" src="{{ asset('uploads/' ~ menu.findParametre.logoLogin.path ~'/'~ menu.findParametre.logoLogin.alt) }}" class="h-60px h-lg-75px" />
+                {% else %}
+                    <img alt="Logo" src="{{ asset('assets/media/logos/logo_tt.png') }}" class="h-60px h-lg-75px" />
+                {% endif %}
+            </a>
+            <!--begin::Title-->
+            <h1 class="text-dark fw-bolder mb-3">Confirmation avec le code</h1>
+            <!--end::Title-->
+            <!--begin::Subtitle-->
+           {# <div class="text-gray-500 fw-semibold fs-6">Gestion permissions</div>#}
+          {#  {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}#}
+
+            <!--end::Subtitle=-->
+        </div>
+        <!--begin::Heading-->
+        <!--begin::Login options-->
+        <div class="row g-3 mb-9">
+            <!--begin::Col-->
+
+            <!--end::Col-->
+        </div>
+        <!--end::Login options-->
+        <!--begin::Separator-->
+
+        <!--end::Separator-->
+
+        <!--end::Input group=-->
+        <div class="fv-row mb-3">
+            <!--begin::Password-->
+            <input id="_auth_code" type="text" name="_auth_code" autocomplete="one-time-code" autofocus="" class="form-control bg-transparent">
+            <!--end::Password-->
+        </div>
+        <!--end::Input group=-->
+        <!--begin::Wrapper-->
+
+        <!--end::Wrapper-->
+        <!--begin::Submit button-->
+        <div class="d-grid mb-10">
+
+            <button type="submit" class="btn btn-main">
+                <!--begin::Indicator label-->
+                <span class="indicator-label">Valider</span>
+                <!--end::Indicator progress-->
+            </button>
+
+        </div>
+        <div class="d-grid mb-10">
+
+            <a  class="btn btn-primary" href="/logout">Annuler</a>
+
+        </div>
+        <!--end::Submit button-->
+        <!--begin::Sign up-->
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" />
+
+        <!--end::Sign up-->
+    </form>
+{% endblock %}

@@ -1,0 +1,167 @@
+{% block page_content %}
+    {% form_theme form 'widget/fields-block.html.twig' %}
+    {% from '_macros/macro_groupe.html.twig' import prototype_ligne_colonne %}
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Création Groupe</h5>
+        <div class="btn btn-icon btn-sm  ms-2" data-bs-dismiss="modal" aria-label="Close">
+            <span class="svg-icon svg-icon-2x text-white">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor"></rect>
+					<rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="currentColor"></rect>
+				</svg>
+            </span>
+        </div>
+    </div>
+    {{ form_start(form, {'attr': {'role':'form', 'class': 'form'}}) }}
+    <div class="modal-body">
+       {# <div id="list-ligne" data-prototype="{{ lignes_module_groupe(form.moduleGroupePermitions.vars.prototype, 1)|e }}"></div>#}
+        {{ include('_includes/ajax/response.html.twig') }}
+
+        <div class="row">
+
+            <div class="form-group col-md-6">
+                <label class="sr-onl" for="userinput1">Code*</label>
+                {{ form_widget(form.code) }}
+            </div>
+            <div class="form-group col-md-6">
+                <label class="sr-onl" for="userinput1">Nom Groupe*</label>
+                {{ form_widget(form.name) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-12">
+                <label class="sr-onl" for="userinput1">Description*</label>
+                {{ form_widget(form.description) }}</div>
+
+        </div>
+        <br>
+        {{ prototype_ligne_colonne(form) }}
+
+
+    </div>
+    <div class="modal-footer">
+        {# {{ include('_includes/ajax/loader.html.twig') }} #}
+        <button type="button" class="btn btn-default " data-bs-dismiss="modal">Annuler</button>
+        <button type="submit" class="btn btn-main btn-ajax"><span class="spinner-border d-none  spinner-ajax spinner-border-sm" role="status" aria-hidden="true"></span> Valider</button>
+        {#<button href="{{ path('app_stock_magasin_demande_new') }}" class="btn btn-main btn-sm exampleModalSizeLg2" id="exampleModalSizeLg2" data-bs-toggle="modal" data-bs-target="#exampleModalSizeLg2"><span class="bi bi-trash"></span></button>#}
+    </div>
+    {{ form_widget(form._token) }}
+    {{ form_end(form, {render_rest: false}) }}
+
+
+
+{% endblock %}
+
+{% block java %}
+    <script>
+        $(function () {
+            init_select2('select', null, '#exampleModalSizeSm2');
+
+        });
+
+        $(function () {
+            const $container = $('.row-colonne');
+
+            var index = $container.length;
+
+
+            const $addLink = $('.add_line');
+            $addLink.click(function(e) {
+                const $this  = $(this);
+                const proto_class = $this.attr('data-protoclass');
+                const name = $this.attr('data-protoname');
+                const $container = $($this.attr('data-container'));
+
+
+
+                addLine($container, name, proto_class);
+
+
+
+                e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+            });
+            // On ajoute un premier champ automatiquement s'il n'en existe pas déjà un (cas d'une nouvelle annonce par exemple).
+            /*if (index == 0) {
+            addimputation($container);
+            } else {*/
+            if (index > 0) {
+                $container.children('.row-column').each(function() {
+                    const $this = $(this);
+                    addDeleteLink($this);
+                    $this.find("select").each(function() {
+                        const $this = $(this);
+                        init_select2($this, null, '#exampleModalSizeSm2');
+                    });
+                });
+
+            }
+
+
+
+
+            // La fonction qui ajoute un formulaire Categorie
+            function addLine($container, name, proto_class) {
+                // Dans le contenu de l'attribut « data-prototype », on remplace :
+                // - le texte "__name__label__" qu'il contient par le label du champ
+                // - le texte "__name__" qu'il contient par le numéro du champ
+
+                var $prototype = $($(proto_class).attr('data-prototype')
+                    .replace(new RegExp(name + 'label__', 'g'), 'Colonne ' + (index+1))
+                    .replace(new RegExp(name, 'g'), index));
+
+
+                init_select2($prototype.find('select'), null, '#exampleModalSizeSm2');
+
+
+                // On ajoute au prototype un lien pour pouvoir supprimer la prestation
+                addDeleteLink($prototype, name);
+                // On ajoute le prototype modifié à la fin de la balise <div>
+                $container.append($prototype);
+
+                index++;
+            }
+
+
+            function addDeleteLink($prototype, name = null) {
+                // Création du lien
+                $deleteLink = $('<a href="#" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></a>');
+                // Ajout du lien
+                $prototype.find(".del-col").append($deleteLink);
+
+
+
+                // Ajout du listener sur le clic du lien
+                $deleteLink.click(function(e) {
+                    const $this = $(this);
+                    const $parent = $this.closest($this.parent('div').attr('data-parent'));
+
+                    //console.log($(this).attr('data-parent'), $(this));
+                    $parent.remove();
+
+                    if (index > 0) {
+                        index -= 1;
+                    }
+
+                    e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+                });
+            }
+
+
+            $(document).on('select2:select', '.select-type', function (e) {
+                const $this = $(this);
+                let field_str = $this.find('option:selected').attr('data-require-fields');
+                const $parent = $this.closest('.row-colonne');
+                let fields = [];
+                if (typeof field_str != 'undefined') {
+                    fields = field_str.split(',');
+                    for (let field of fields ) {
+                        $parent.find('.' + field).removeClass('d-none');
+                    }
+                } else {
+                    $parent.find('.source,.valeurs').addClass('d-none');
+                }
+            });
+        })
+
+    </script>
+{% endblock %}
