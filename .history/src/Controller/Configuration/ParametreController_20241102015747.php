@@ -184,6 +184,11 @@ class ParametreController extends BaseController
 
         $permission = $this->menu->getPermissionIfDifferentNull($this->security->getUser()->getGroupe()->getId(), self::INDEX_ROOT_NAME_CONTRAT);
 
+        /* if($this->menu->getPermission()){
+             $redirect = $this->generateUrl('app_default');
+             return $this->redirect($redirect);
+             //dd($this->menu->getPermission());
+         }*/
         $modules = [
             [
                 'label' => 'Années',

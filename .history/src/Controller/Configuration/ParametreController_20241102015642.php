@@ -19,9 +19,6 @@ class ParametreController extends BaseController
 {
 
     const INDEX_ROOT_NAME = 'app_config_parametre_index';
-    const INDEX_ROOT_NAME_MAISON = 'app_config_parametre_maisons_index';
-    const INDEX_ROOT_NAME_CONTRAT = 'app_config_parametre_contrats_index';
-
 
     #[Route(path: '/', name: 'app_config_parametre_index', methods: ['GET', 'POST'])]
     public function index(Request $request, Breadcrumb $breadcrumb): Response
@@ -29,7 +26,11 @@ class ParametreController extends BaseController
 
         $permission = $this->menu->getPermissionIfDifferentNull($this->security->getUser()->getGroupe()->getId(), self::INDEX_ROOT_NAME);
 
-     
+        /* if($this->menu->getPermission()){
+             $redirect = $this->generateUrl('app_default');
+             return $this->redirect($redirect);
+             //dd($this->menu->getPermission());
+         }*/
         $modules = [
             [
                 'label' => 'Général',
@@ -137,6 +138,12 @@ class ParametreController extends BaseController
     {
 
         $permission = $this->menu->getPermissionIfDifferentNull($this->security->getUser()->getGroupe()->getId(), self::INDEX_ROOT_NAME_MAISON);
+
+        /* if($this->menu->getPermission()){
+             $redirect = $this->generateUrl('app_default');
+             return $this->redirect($redirect);
+             //dd($this->menu->getPermission());
+         }*/
         $modules = [
             [
                 'label' => 'Les villes',
@@ -184,6 +191,11 @@ class ParametreController extends BaseController
 
         $permission = $this->menu->getPermissionIfDifferentNull($this->security->getUser()->getGroupe()->getId(), self::INDEX_ROOT_NAME_CONTRAT);
 
+        /* if($this->menu->getPermission()){
+             $redirect = $this->generateUrl('app_default');
+             return $this->redirect($redirect);
+             //dd($this->menu->getPermission());
+         }*/
         $modules = [
             [
                 'label' => 'Années',

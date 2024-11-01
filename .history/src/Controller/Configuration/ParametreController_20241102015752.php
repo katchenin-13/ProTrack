@@ -184,6 +184,7 @@ class ParametreController extends BaseController
 
         $permission = $this->menu->getPermissionIfDifferentNull($this->security->getUser()->getGroupe()->getId(), self::INDEX_ROOT_NAME_CONTRAT);
 
+     
         $modules = [
             [
                 'label' => 'Années',

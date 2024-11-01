@@ -19,6 +19,8 @@ class ParametreSuperAdminController extends BaseController
 {
 
     const INDEX_ROOT_NAME = 'app_config_parametre_super_admin_index';
+    const INDEX_ROOT_NAME_MAISON = 'app_config_parametre_maisons_index';
+    const INDEX_ROOT_NAME_CONTRAT = 'app_config_parametre_contrats_index';
 
 
     /* private $menu;
